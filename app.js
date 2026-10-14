@@ -1,4 +1,5 @@
-(() => {
+render();
+})();
   "use strict";
   const STORE_KEY = "business-stock-manager-v1";
   const $ = (id) => document.getElementById(id);
