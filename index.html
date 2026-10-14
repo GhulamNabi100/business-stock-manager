@@ -3,64 +3,165 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0f766e">
+  <meta name="theme-color" content="#102d35">
+  <meta name="description" content="A simple, premium inventory dashboard to manage products, purchases, sales, stock alerts and reports.">
   <title>Business Stock Manager</title>
-  <link rel="stylesheet" href="styles.css">
+
+  <!-- IMPORTANT: This filename must match the CSS file in your GitHub repository. -->
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
   <div class="app-shell">
-    <aside class="sidebar">
-      <div class="brand"><div class="brand-mark">BS</div><div><strong>Business Stock</strong><small>MANAGER</small></div></div>
-      <nav id="navigation">
-        <button class="nav-link active" data-page="dashboard"><span>▦</span> Dashboard</button>
-        <button class="nav-link" data-page="products"><span>▣</span> Products</button>
-        <button class="nav-link" data-page="sales"><span>↗</span> Sales</button>
-        <button class="nav-link" data-page="purchases"><span>↙</span> Purchases</button>
-        <button class="nav-link" data-page="reports"><span>▤</span> Reports</button>
+    <aside class="sidebar" aria-label="Main sidebar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">BS</div>
+        <div>
+          <strong>Business Stock</strong>
+          <small>MANAGER</small>
+        </div>
+      </div>
+
+      <nav id="navigation" aria-label="Main navigation">
+        <button class="nav-link active" type="button" data-page="dashboard" aria-current="page">
+          <span aria-hidden="true">▦</span> Dashboard
+        </button>
+        <button class="nav-link" type="button" data-page="products">
+          <span aria-hidden="true">▣</span> Products
+        </button>
+        <button class="nav-link" type="button" data-page="sales">
+          <span aria-hidden="true">↗</span> Sales
+        </button>
+        <button class="nav-link" type="button" data-page="purchases">
+          <span aria-hidden="true">↙</span> Purchases
+        </button>
+        <button class="nav-link" type="button" data-page="reports">
+          <span aria-hidden="true">▤</span> Reports
+        </button>
       </nav>
-      <div class="sidebar-note"><span class="status-dot"></span> Offline-ready demo<br><small>Data saves in this browser</small></div>
+
+      <div class="sidebar-note">
+        <span class="status-dot" aria-hidden="true"></span>
+        Offline-ready demo
+        <br>
+        <small>Data saves in this browser</small>
+      </div>
     </aside>
+
     <main class="main">
       <header class="topbar">
-        <div><div class="eyebrow">INVENTORY WORKSPACE</div><h1 id="page-title">Dashboard</h1></div>
-        <div class="top-actions"><span class="date-label" id="today-label"></span><button class="btn btn-primary" id="quick-add">＋ Add product</button></div>
+        <div>
+          <div class="eyebrow">INVENTORY WORKSPACE</div>
+          <h1 id="page-title">Dashboard</h1>
+        </div>
+        <div class="top-actions">
+          <span class="date-label" id="today-label"></span>
+          <button class="btn btn-primary" id="quick-add" type="button">＋ Add product</button>
+        </div>
       </header>
-      <section id="page-content" aria-live="polite"></section>
-      <footer>Business Stock Manager <span>•</span> Starter version · Keep regular backups</footer>
+
+      <section id="page-content" aria-live="polite" aria-busy="false"></section>
+
+      <footer>
+        Business Stock Manager <span aria-hidden="true">•</span>
+        Starter version · Keep regular backups
+      </footer>
     </main>
   </div>
-  <div class="toast" id="toast" role="status"></div>
-  <dialog id="product-dialog" class="dialog">
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <dialog id="product-dialog" class="dialog" aria-labelledby="product-dialog-title">
     <form id="product-form" method="dialog">
-      <div class="dialog-head"><div><div class="eyebrow">INVENTORY</div><h2 id="product-dialog-title">Add product</h2></div><button type="button" class="icon-btn" data-close="product-dialog">✕</button></div>
+      <div class="dialog-head">
+        <div>
+          <div class="eyebrow">INVENTORY</div>
+          <h2 id="product-dialog-title">Add product</h2>
+        </div>
+        <button type="button" class="icon-btn" data-close="product-dialog" aria-label="Close dialog">✕</button>
+      </div>
+
       <input type="hidden" id="product-id">
-      <label>Product name<input id="product-name" required maxlength="100" placeholder="e.g. Fresh N Up Juice"></label>
+
+      <label>
+        Product name
+        <input id="product-name" required maxlength="100" placeholder="e.g. Fresh N Up Juice" autocomplete="off">
+      </label>
+
       <div class="form-grid">
-        <label>SKU / Code<input id="product-sku" maxlength="40" placeholder="Optional"></label>
-        <label>Category<input id="product-category" maxlength="60" placeholder="e.g. Drinks"></label>
-        <label>Purchase price (PKR)<input id="product-cost" type="number" min="0" step="0.01" required value="0"></label>
-        <label>Sale price (PKR)<input id="product-price" type="number" min="0" step="0.01" required value="0"></label>
-        <label>Opening quantity<input id="product-qty" type="number" min="0" step="1" required value="0"></label>
-        <label>Low-stock alert at<input id="product-low" type="number" min="0" step="1" required value="5"></label>
+        <label>SKU / Code
+          <input id="product-sku" maxlength="40" placeholder="Optional" autocomplete="off">
+        </label>
+        <label>Category
+          <input id="product-category" maxlength="60" placeholder="e.g. Drinks" autocomplete="off">
+        </label>
+        <label>Purchase price (PKR)
+          <input id="product-cost" type="number" min="0" step="0.01" required value="0" inputmode="decimal">
+        </label>
+        <label>Sale price (PKR)
+          <input id="product-price" type="number" min="0" step="0.01" required value="0" inputmode="decimal">
+        </label>
+        <label>Opening quantity
+          <input id="product-qty" type="number" min="0" step="1" required value="0" inputmode="numeric">
+        </label>
+        <label>Low-stock alert at
+          <input id="product-low" type="number" min="0" step="1" required value="5" inputmode="numeric">
+        </label>
       </div>
-      <div class="dialog-actions"><button type="button" class="btn btn-light" data-close="product-dialog">Cancel</button><button class="btn btn-primary" type="submit">Save product</button></div>
+
+      <div class="dialog-actions">
+        <button type="button" class="btn btn-light" data-close="product-dialog">Cancel</button>
+        <button class="btn btn-primary" type="submit">Save product</button>
+      </div>
     </form>
   </dialog>
-  <dialog id="transaction-dialog" class="dialog">
+
+  <dialog id="transaction-dialog" class="dialog" aria-labelledby="transaction-title">
     <form id="transaction-form" method="dialog">
-      <div class="dialog-head"><div><div class="eyebrow" id="transaction-eyebrow">TRANSACTION</div><h2 id="transaction-title">Record sale</h2></div><button type="button" class="icon-btn" data-close="transaction-dialog">✕</button></div>
-      <input type="hidden" id="transaction-type">
-      <label>Product<select id="transaction-product" required></select></label>
-      <div class="form-grid">
-        <label>Quantity<input id="transaction-qty" type="number" min="1" step="1" required value="1"></label>
-        <label id="transaction-price-label">Unit price (PKR)<input id="transaction-price" type="number" min="0" step="0.01" required></label>
+      <div class="dialog-head">
+        <div>
+          <div class="eyebrow" id="transaction-eyebrow">TRANSACTION</div>
+          <h2 id="transaction-title">Record sale</h2>
+        </div>
+        <button type="button" class="icon-btn" data-close="transaction-dialog" aria-label="Close dialog">✕</button>
       </div>
-      <label>Customer / Supplier / Note<input id="transaction-note" maxlength="120" placeholder="Optional"></label>
-      <div class="transaction-total">Total <strong id="transaction-total">PKR 0</strong></div>
-      <div class="dialog-actions"><button type="button" class="btn btn-light" data-close="transaction-dialog">Cancel</button><button class="btn btn-primary" type="submit">Save transaction</button></div>
+
+      <input type="hidden" id="transaction-type">
+
+      <label>
+        Product
+        <select id="transaction-product" required></select>
+      </label>
+
+      <div class="form-grid">
+        <label>
+          Quantity
+          <input id="transaction-qty" type="number" min="1" step="1" required value="1" inputmode="numeric">
+        </label>
+        <label id="transaction-price-label">
+          Unit price (PKR)
+          <input id="transaction-price" type="number" min="0" step="0.01" required inputmode="decimal">
+        </label>
+      </div>
+
+      <label>
+        Customer / Supplier / Note
+        <input id="transaction-note" maxlength="120" placeholder="Optional" autocomplete="off">
+      </label>
+
+      <div class="transaction-total">
+        Total <strong id="transaction-total">PKR 0</strong>
+      </div>
+
+      <div class="dialog-actions">
+        <button type="button" class="btn btn-light" data-close="transaction-dialog">Cancel</button>
+        <button class="btn btn-primary" type="submit">Save transaction</button>
+      </div>
     </form>
   </dialog>
+
   <input type="file" id="restore-file" accept="application/json,.json" hidden>
-  <script src="app.js"></script>
+
+  <!-- Keep app.js in the repository root so the dashboard features can run. -->
+  <script src="./app.js" defer></script>
 </body>
 </html>
